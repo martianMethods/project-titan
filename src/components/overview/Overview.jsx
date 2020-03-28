@@ -113,7 +113,7 @@ class Overview extends React.Component {
 
   conditionalStyles() {
     let storage = [];
-    let styles = this.props.styles;
+    let styles = [...this.props.styles];
     while (styles.length % 4) {
       styles.push({});
     }
