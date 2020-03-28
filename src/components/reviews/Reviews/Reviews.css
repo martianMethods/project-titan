@@ -24,14 +24,13 @@
   width: 100%;
 }
 
-.btn {
+.container .thebtns {
   width: 100%;
-  margin-bottom: 1em;
-  margin: 5px;
+  /* margin: 5px; */
 }
 
-@media (max-width: 575px) {
+/* @media (max-width: 575px) {
   .theMedia {
     height: 25vw;
   }
-}
+} */

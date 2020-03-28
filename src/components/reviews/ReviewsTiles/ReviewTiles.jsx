@@ -6,6 +6,7 @@ import Col from "react-bootstrap/Col";
 import "./ReviewsTiles.css";
 import StarRatings from "react-star-ratings";
 import PropTypes from "prop-types";
+import Highlighter from "react-highlight-words";
 import ImageComponent from "../Image/ImageComponent";
 import Button from "react-bootstrap/Button";
 
@@ -16,7 +17,8 @@ class ReviewTiles extends React.Component {
     this.state = {
       helpfulness: 0,
       clicked: false,
-      showMore: false
+      showMore: false,
+      activeIndex: -1
     };
   }
 
@@ -43,12 +45,24 @@ class ReviewTiles extends React.Component {
     const { helpfulness } = this.state;
     const { clicked } = this.state;
     const { date } = this.props;
+    const { activeIndex } = this.state;
     if (review.body.length < 50) {
       return null;
     }
     return (
       <dl className=" layout spreadOut">
+        <script src="vendor/mark.js/dist/mark.min.js"></script>
         <React.Fragment key={review.review_id}>
+          {/* <b>
+            <Highlighter
+              highlightClassName=""
+              activeIndex={activeIndex}
+              searchWords={[...this.props.search]}
+              autoEscape={true}
+              textToHighlight={review.body}
+              style={{ padding: "unset" }}
+            />
+          </b> */}
           <Col>
             <Row className="layout noBorder">
               <Col className="layout noBorder">

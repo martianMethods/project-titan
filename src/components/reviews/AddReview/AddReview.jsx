@@ -100,7 +100,7 @@ export default class AddReview extends Component {
   handleSubmit = () => {
     const { productId } = this.state;
     const { summary } = this.state;
-    const { Characteristics } = this.state;
+    //const { Characteristics } = this.state;
     const { recommend } = this.state;
     const { nickname } = this.state;
     const { body } = this.state;

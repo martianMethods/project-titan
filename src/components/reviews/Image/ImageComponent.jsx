@@ -28,7 +28,7 @@ export default class ImageComponent extends Component {
   };
 
   render() {
-    const { photo, id } = this.props;
+    const { photo } = this.props;
     const { isOpen } = this.state;
 
     return (
@@ -43,7 +43,11 @@ export default class ImageComponent extends Component {
             />
             <Modal show={true}>
               <ModalHeader style={{ textAlign: "right" }}>
-                <button onClick={this.handleShowImage}>&#x274C;</button>
+                <button onClick={this.handleShowImage}>
+                  <span role="img" aria-labelledby="photoId">
+                    &#x274C;
+                  </span>
+                </button>
               </ModalHeader>
               <ModalBody style={{ textAlign: "center" }}>
                 <Image

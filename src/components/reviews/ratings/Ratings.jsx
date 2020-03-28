@@ -123,7 +123,7 @@ export default class Ratings extends Component {
     //   return null;
     // }
     if (this.state.recommendedYes === undefined) {
-      this.state.recommendedYes = null;
+      return null; // this.state.recommendedYes = null;
     }
     return (
       <div
