@@ -54,10 +54,28 @@ class RIAC extends React.Component{
     return localStorage.setItem("yourOutfitIds", JSON.stringify(this.state.yourOutfitIds))
   }
 
+  // const init = () => {
+  //   let preloadedState;
+  //   try {
+  //     preloadedState =  JSON.parse(window.localStorage.getItem(storageKey));
+  //     // validate preloadedState if necessary
+  //   } catch (e) {
+  //     // ignore
+  //   }
+  //   return preloadedState || initialState;
+  // };
 
   reinstateOutfitIds = () => {
-    return JSON.parse(localStorage.getItem("yourOutfitIds"));
-  }
+    let yourPreloadedOutfitIds = [];
+    let storageKey = "yourOutfitIds";
+    try {
+      yourPreloadedOutfitIds = JSON.parse(localStorage.getItem(storageKey));
+    //validate yourPreloadedOutfitIds
+    } catch (e) {
+      // ignore
+    }
+    return yourPreloadedOutfitIds || [];
+    };
 
   setCardTypeToYourOutfit = () => {
       this.props.cardType("yourOutfit");
@@ -102,9 +120,18 @@ class RIAC extends React.Component{
 
     let relatedProductsIds = this.props.relatedProductsIds;
     // console.log("RIAC: rPIds: ", relatedProductsIds)
+    let relatedDisplayProductsIds = relatedProductsIds.slice();
+    // console.log("R: rDPIds: ", relatedDisplayProductsIds)
+    if (relatedDisplayProductsIds !== undefined) {
+      relatedDisplayProductsIds.length = 4;
+      }      
 
     // YOUR OUTFIT
     // console.log("RIAC: render: t.s.yOIds: ", this.state.yourOutfitIds);
+    // let yourOutfitIdsForDisplay = yourOutfitIds.splice();
+    // if (yourOutfitIdsForDisplay !== undefined) {
+    //   yourOutfitIdsForDisplay.length = 3;
+    //   }      
 
      return (
       <Container-fluid class="layout container RIAC">
@@ -113,7 +140,7 @@ class RIAC extends React.Component{
           <Row className="layout"><strong>Related Products</strong>
           &nbsp; &nbsp; Click on image to see details. Click on star to see feature comparison.</Row>
           <Row className="layout"> {
-              relatedProductsIds.map((relatedProductId, index) => { 
+              relatedDisplayProductsIds.map((relatedProductId, index) => { 
                 let indexProdIdStr = index.toString() + '-' + relatedProductId.toString();
                 return (
                   <Col className="layout col-3" key={indexProdIdStr}>
@@ -146,8 +173,8 @@ class RIAC extends React.Component{
                 </Row>
               </div>
             </Col>
-          
             {
+              // yourOutfitIdsForDisplay.map((yourOutfitId, index) => { 
               yourOutfitIds.map((yourOutfitId, index) => { 
                 index++;
                 let indexOutfitIdStr = index.toString() + '-' + yourOutfitId.toString();

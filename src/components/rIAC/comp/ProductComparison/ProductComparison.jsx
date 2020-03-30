@@ -104,7 +104,8 @@ class ProductComparison extends React.Component {
     
     for (let i = 0; i < currentFeaturesArr.length; i++) {
       // allFeaturesArr.push(currentFeaturesArr[i]);
-      if (currentFeaturesArr[i].value === "null") currentFeaturesArr[i].value = null;
+      // if (currentFeaturesArr[i].value === "null") currentFeaturesArr[i].value = null;
+      if (currentFeaturesArr[i].value === "null") currentFeaturesArr[i].value = "(not applicable)";
       // if (currentFeaturesArr[i].value === "null") currentFeaturesArr[i].value = &#x2713;
       // if (currentFeaturesArr[i].value === true) currentFeaturesArr[i].value = "&#x2713";
       allFeaturesArr.push( 
@@ -115,7 +116,8 @@ class ProductComparison extends React.Component {
       )
       for (let j = 0; j < relatedFeaturesTempArr.length; j++) {
         if (allFeaturesArr[i].feature === relatedFeaturesTempArr[j].feature) {
-          if (relatedFeaturesTempArr[j].value === "null") relatedFeaturesTempArr[j].value = null;
+          // if (relatedFeaturesTempArr[j].value === "null") relatedFeaturesTempArr[j].value = null;
+          if (relatedFeaturesTempArr[j].value === "null") relatedFeaturesTempArr[j].value = "(not applicable)";
           // if (relatedFeaturesTempArr[i].value === "null") relatedFeaturesTempArr[i].value = &#x2713;
           // if (relatedFeaturesTempArr[i].value === true) relatedFeaturesTempArr[i].value = "&#x2713";
           allFeaturesArr[i].relatedValue = relatedFeaturesTempArr[j].value;
@@ -128,7 +130,8 @@ class ProductComparison extends React.Component {
       }
     }
     for (let j = currentFeaturesArrLen - 1; j < relatedFeaturesTempArr.length; j++) {
-      if (relatedFeaturesTempArr[j].value === "null") relatedFeaturesTempArr[j].value = null;
+      // if (relatedFeaturesTempArr[j].value === "null") relatedFeaturesTempArr[j].value = null;
+      if (relatedFeaturesTempArr[j].value === "null") relatedFeaturesTempArr[j].value = "(not applicable)";
       // if (relatedFeaturesTempArr[j].value === "null") relatedFeaturesTempArr[j].value = &#x2713;
       // if (relatedFeaturesTempArr[j].value === true) relatedFeaturesTempArr[j].value = "&#x2713";
       allFeaturesArr.push( 
@@ -145,26 +148,19 @@ class ProductComparison extends React.Component {
     // const [show, setShow] = useState(false);
     const show = true;
     const setShow = () => {
-
     }
 
     const handleClose = () => setShow(false);
     // const handleShow = () => setShow(true);
-      
 
-    // allFeaturesArr.map((feature, index) => { 
-    //   <Row className="layout comparison-body" key={feature}> {
-    //         return (
-    //           <Table
-    //         allFeaturesArr = {this.props.currentProduct}
-    //         setProductId={this.props.setProductId}
-    //         cardProductId={cardProductId}
-    //       />
-    //     }
-    //     </Row>
-    //   )
-    // })
-
+// ///////
+// SEARCH FOR relatedProduct.features.value: true 1-31: NONE FOUND
+// console.log("PComp: cP: ", currentProduct);
+// console.log("PComp: rP: ", relatedProduct);
+// let relatedFeaturesRubber = relatedFeaturesTempArr.filter(element => element.value === "Rubber");
+// let relatedFeaturesTrue = relatedFeaturesTempArr.filter(element => element.value === (true || "true"));
+// console.log("PComp: rFR: ", relatedFeaturesRubber);
+// console.log("PComp: rFT: ", relatedFeaturesTrue);
 
     return (
       // <Container-fluid class="layout product-card-layout align-left">
