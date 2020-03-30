@@ -43,6 +43,7 @@ class App extends React.Component {
       });
       helper.getReviewMetadata(this.state.productId, result => {
         this.setState({
+          metaData: result,
           currentReviewRating: helper.calculateReviewRating(result.ratings)
         });
       });
@@ -66,9 +67,6 @@ class App extends React.Component {
         this.setState({
           relatedProductsIds: result
         });
-      });
-      this.setState({
-        previousProductId: this.state.productId
       });
     }
   }

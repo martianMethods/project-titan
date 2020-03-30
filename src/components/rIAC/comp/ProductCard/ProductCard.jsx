@@ -8,16 +8,19 @@ import Row from 'react-bootstrap/Row'
 // import Col from 'react-bootstrap/Col' // NOT YET USED
 import StarRatings from "react-star-ratings";
 import noImage from "./NoImageOnFile.jpg";
-// import noStyles from "./NoStylesOnFile.jpg"; // NEVER USED
+import addToOutfitImage from "./NoStylesOnFile.jpg";
+import alreadyInOutfitImage from "./NoImageOnFile.jpg"; // NEVER USED
 import "./ProductCard.css";
 import ProductComparison from '../ProductComparison/ProductComparison';
-
 
 // props as defined in calling parent
 //   setProductId  ={this.props.setProductId}
 //   currentProduct  ={this.props.currentProduct} USED ONLY FOR DEBUGGING
-//   relatedProductId  ={relatedProductId}
-
+//   cardProductId  ={relatedZProductId}
+//   cardType  = "relatedProduct"  OR "yourOutfits"
+//   cardImageName   ={yourOutfitImageToShow}
+//   addOutfitProductId  ={this.addOutfitProductId} // only for YO
+//   removeOutfitProductId  ={this.removeOutfitProductId}
 
 const helper = require("../../../../helper/helper.js");
 
@@ -25,10 +28,11 @@ class ProductCard extends React.Component {
   constructor(props) {
     super(props)
     this.state={
-      relatedProduct: null, // change over time, requiring re-render
-      relatedStyles: null, // change over time, requiring re-render
-      relatedReviewRating: null, // change over time, requiring re-render
+      cardProduct: null, // change over time, requiring re-render
+      cardStyles: null, // change over time, requiring re-render
+      cardReviewRating: null, // change over time, requiring re-render
       compareProductsNow: false
+      // cardType: "relatedProduct"  // outfitProduct
     }
 
     // NO NEED TO BIND WHEN I HAVE <this>
@@ -36,41 +40,48 @@ class ProductCard extends React.Component {
   }
   
   componentDidMount() {
-    // let relatedProductId = this.props.relatedProductId  // NEVER USED
-    // console.log("+PC: cDM: if cRPId: ", relatedProductId)
-    this.loadRelatedProductData();
+    // let cardProductId = this.props.cardProductId  // NEVER USED
+    // console.log("+PC: cDM: if cRPId: ", cardProductId)
+    this.loadProductData();
   }
 
   // Strictly speaking, not needed. KEEPT FOR DEBUGGING OR IF NEEDED
   componentDidUpdate = (prevProps, prevState) => {
-    // console.log("PC: cDU: rPI: ", this.props.relatedProductId);
-    if (prevProps.relatedProductId !== this.props.relatedProductId) {
-      this.loadRelatedProductData();
+    // console.log("PC: cDU: rPI: ", this.props.cardProductId);
+    if (prevProps.cardProductId !== this.props.cardProductId) {
+      this.loadProductData();
     }
   }
   
-  loadRelatedProductData = () => {
-    helper.getOneProduct(this.props.relatedProductId, result => {
+  loadProductData = () => {
+    helper.getOneProduct(this.props.cardProductId, result => {
       // console.log("PC: lRPD: gOP: result: " , result)
       this.setState({
-        relatedProduct: result
+        cardProduct: result
       });
     });
-    helper.getOneProductStyle(this.props.relatedProductId, result => {
+    helper.getOneProductStyle(this.props.cardProductId, result => {
       this.setState({
-        relatedStyles: result.results
+        cardStyles: result.results
       });
     });
 
-    helper.getReviewMetadata(this.props.relatedProductId, result => {
+    helper.getReviewMetadata(this.props.cardProductId, result => {
       this.setState({
-        relatedReviewRating: helper.calculateReviewRating(result.ratings)
+        cardReviewRating: helper.calculateReviewRating(result.ratings)
       });
     });
   }
   
   setProductId = () => { 
-    this.props.setProductId(this.props.relatedProductId);
+    this.props.setProductId(this.props.cardProductId);
+  }
+
+  compareProducts = (event) => {
+    event.stopPropagation();
+    this.setState({
+      compareProductsNow: true
+    });
   }
 
   closeComparison = (event) => { 
@@ -80,21 +91,25 @@ class ProductCard extends React.Component {
     });
   }
 
-  // compareProducts = (event, currentProductId, relatedProductId) => { // React won't use Arg1, Arg2
-  compareProducts = (event) => {
-    event.stopPropagation();
-    this.setState({
-      compareProductsNow: true
-    });
+  starClick = (cardType) => {
+    if (cardType) {
+      this.compareProducts()
+    } else {
+      this.removeOutfit()
+    }
   }
 
-    // Pre-method check if ready to render or null
-    // function method
+  removeOutfitProductId = (event) => {
+    this.props.removeOutfitProductId(this.props.cardProductId)
+  }
+
+  // Pre-method check if ready to render or null
   isReadytoRender = () => {
     return (
-      this.state.relatedProduct !== null &&
-      this.state.relatedStyles !== null &&
-      this.state.relatedReviewRating !== null
+      this.state.cardProduct !== null &&
+      this.state.cardStyles !== null &&
+      this.state.cardReviewRating !== null &&
+      this.cardType !== null
     );
   }
 
@@ -104,64 +119,81 @@ class ProductCard extends React.Component {
     // Pre-method check if ready to render or null
 
     // Explicit method
-    // if (this.state.relatedProduct === null) return null;
-    // if (this.state.relatedStyles === null) return null;
-    // if (this.state.relatedReviewRating === null) return null;
+    // if (this.state.cardProduct === null) return null;
+    // if (this.state.cardStyles === null) return null;
+    // if (this.state.cardReviewRating === null) return null;
 
     // function method
     if (!this.isReadytoRender()) return null;
 
-    const { relatedProduct, relatedStyles, relatedReviewRating } = this.state;
+    // const { setProductId, currentProduct, cardProductId, cardType } = this.props; // NOT USED
+    const { cardProduct, cardStyles, cardReviewRating } = this.state;
 
     // console.logs for DEBUGGING
-
     // console.log("PC: cP: ", currentProduct); // used only for debugging
-    // console.log("PC: rPId: ", this.props.relatedProductId);
-    // console.log("PC: rP: ", relatedProduct);
-    // console.log("PC: rSs: ", relatedStyles);
+    // console.log("PC: rPId: ", this.props.cardProductId);
+    // console.log("PC: rP: ", cardProduct);
+    // console.log("PC: rSs: ", cardStyles);
 
-    let relatedCategory = relatedProduct.category || null;
-    // console.log("PC: rCat: ", relatedCategory);
+    let cardCategory = cardProduct.category || null;
+    // console.log("PC: rCat: ", cardCategory);
 
-    let relatedCaption = relatedProduct.name ? relatedProduct.name : null;
-    // let relatedCaption = (relatedProduct.name === undefined || relatedProduct.slogan === undefined) ? null : relatedProduct.name + ' - ' + relatedProduct.slogan;
-    // console.log("PC: rCap: ", relatedCaption);
+    let cardCaption = cardProduct.name ? cardProduct.name : null;
+    // console.log("PC: rCap: ", cardCaption);
 
-    let relatedDefPrice = relatedProduct.default_price || null; // SUPERCEDED BY style data
-    // console.log("PC: rDP: ", relatedDefPrice);
+    let cardDefaultPrice = cardProduct.default_price || null; // SUPERCEDED BY style data
+    // console.log("PC: rDP: ", cardDefaultPrice);
 
-    // QQQQ is this appropriate: noDefault => 0;
+    // QUICK PATCH: !default => set to 0
+    // let cardStyle = cardStyles.find(style => style["default?"] === 1) || cardStyles[0];
+    let cardStyle = null;
+    // console.log("PC: render: cS: ", cardStyle)
+    let cardStyleOriginalPrice = null;
+    // console.log("PC: render: cSoP: ", cardStyleOriginalPrice)
+    let cardStyleSalePrice = cardDefaultPrice;
+    // console.log("PC: render: cSSP: ", cardStyleSalePrice)
+    let cardStyleImage = noImage;
+    // console.log("PC: render: cSI: ", cardStyleImage)
+  
+    if (cardStyles.length > 0) {
+      cardStyle = cardStyles.find(style => style["default?"] === 1) || cardStyles[0];
+      // console.log("PC: rS: ", cardStyle);
 
-    // let relatedStyle = relatedStyles.find(style => style["default?"] === 1) || relatedStyles[0];
-    let relatedStyle = relatedStyles.find(style => style["default?"] === 1) || relatedStyles[0];
-        // console.log("PC: rS: ", relatedStyle);
+      // let relatedStylesIndex = 2; // HARD CODED - FALLBAK
+      cardStyleOriginalPrice = cardStyle.original_price || null;
+      // console.log("PC: rStyleOPrice: ", cardStyleOriginalPrice);
 
-    // let relatedStylesIndex = 2; // HARD CODED - FALLBAK
-    let relatedStyleOriginalPrice = relatedStyle.original_price || null;
-    // console.log("PC: rStyleOPrice: ", relatedStyleOriginalPrice);
+      cardStyleSalePrice = cardStyle.sale_price || cardDefaultPrice;
+      // console.log("PC: rStyleSPrice: ", cardStyleSalePrice);
 
-    let relatedStyleSalePrice = relatedStyle.sale_price || relatedDefPrice;
-    // console.log("PC: rStyleSPrice: ", relatedStyleSalePrice);
+      cardStyleImage = cardStyle.photos[0].url || noImage;
+      // console.log("PC: rSI: ", cardStyleImage);
+    }
 
-    let relatedStyleImage = relatedStyle.photos[0].url || noImage;
-    // console.log("PC: rSI: ", relatedStyleImage);
+    if (this.props.cardImageName === "alreadyInOutfit") {
+      cardStyleImage = alreadyInOutfitImage;
+    } else if (this.props.cardImageName === "addToOutfit") {
+      cardStyleImage = addToOutfitImage;
+    }
 
-    // console.log("PC: render: rRR: ", relatedReviewRating);
+    // console.log("PC: render: rRR: ", cardReviewRating);
+
+    // YOUR OUTFIT
+    // this.yourOutfitIds.push(yourOutfitBaseProduct);
 
     return (
       <Container-fluid class="layout product-card-layout align-left">
-        <div id="product-card-div" onClick={this.setProductId}>
-          <div>
-            <div className="card mb-3 style-image">            
-              <img className="card-img-top" src={relatedStyleImage}  alt="Display this style"/>
+        <div className="product-card-div" onClick={this.props.cardType === "relatedProduct" ? this.setProductId : () => {}}>
+          <div className="image-container">
+            <div className="card mb-3">            
+              <img className="card-img-top style-image" src={cardStyleImage}  alt="Display this style"/>
               {/* <img className="card-img-top" src={"https://images.unsplash.com/photo-1473396413399-6717ef7c4093?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80"}  alt=""/> */}
               <div className="card-img-overlay">
-                <small><p className="btn btn-primary btn-star" onClick={this.compareProducts}>&#x2605;</p></small>
-                {/* {this.state.compareProductsNow ? "Some text" : "No text"} */}
+                <small><p className="btn btn-star-riac" onClick={this.props.cardType === "relatedProduct" ? this.compareProducts : this.removeOutfitProductId}>&#x2605;</p></small>
                 {this.state.compareProductsNow && (
                     <ProductComparison 
                       currentProductId={this.props.currentProduct.id}
-                      relatedProductId={this.props.relatedProductId} 
+                      cardProductId={this.props.cardProductId} 
                       closeComparison={this.closeComparison}                  
                     />  
                   )
@@ -172,23 +204,19 @@ class ProductCard extends React.Component {
         </div>
         <div className="card">
           <div className="card-body">          
-          <p className="card-text category">{relatedCategory}</p>
-          <h5 className="card-title pc-caption">{relatedCaption}</h5>
-          <small><p className="card-text text-muted price">${relatedStyleSalePrice} &nbsp; &nbsp; <del>${relatedStyleOriginalPrice}</del></p></small>
+          <p className="card-text category">{cardCategory}</p>
+          <h5 className="card-title pc-caption">{cardCaption}</h5>
+          <small><p className="card-text text-muted price">${cardStyleSalePrice} &nbsp; &nbsp; <del>${cardStyleOriginalPrice}</del></p></small>
             <Row className="rating-stars">              
               <StarRatings
-                rating={relatedReviewRating}
+                rating={cardReviewRating}
                 starDimension="1em"
                 starSpacing={"0"}
               />
             </Row>
           </div>
         </div>
-
-
-
       </Container-fluid>
-
     )
   }
 }

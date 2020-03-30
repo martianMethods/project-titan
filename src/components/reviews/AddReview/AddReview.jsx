@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import "react-bootstrap/Container";
-// import Row from "react-bootstrap/Row";
-// import Col from "react-bootstrap/Col";
 import Modal from "react-bootstrap/Modal";
 import ModalHeader from "react-bootstrap/ModalHeader";
 import ModalTitle from "react-bootstrap/ModalTitle";
@@ -274,19 +272,6 @@ export default class AddReview extends Component {
 
   handleInput = e => {
     this.setState({ [e.target.name]: e.target.value });
-  };
-
-  handleBody = e => {
-    if (this.state.bodyCount > 0) {
-      this.setState({
-        bodyCount: this.state.bodyCount - 1,
-        [e.target.name]: e.target.value
-      });
-    } else {
-      if (this.state.bodyCount === 0) {
-        this.setState({ bodyCount: "Minimum reached" });
-      }
-    }
   };
 
   handleRecommend = e => {
@@ -663,10 +648,15 @@ export default class AddReview extends Component {
                   name="body"
                   // minLength="50"
                   // maxLength="1000"
-                  onChange={this.handleBody}
+                  onChange={this.handleInput}
                   placeholder="Why did you like the product or not?"
                 />
-                <p>Minimum required characters left: {this.state.bodyCount}</p>
+                <p>
+                  Minimum required characters left:{" "}
+                  {this.state.bodyCount - this.state.body.length >= 0
+                    ? this.state.bodyCount - this.state.body.length
+                    : "Minimum Reached"}
+                </p>
                 <Form.Label>
                   <b>Photos:</b>
                 </Form.Label>

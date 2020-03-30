@@ -10,7 +10,7 @@ import "./ProductComparison.css";
 
 // props as defined in calling parent
 //   currentProductId  ={this.props.currentProductId}
-//   relatedProductId  ={relatedProductId}
+//   cardProductId  ={cardProductId}
 //   closeComparison   ={this.closeComparison
 
 
@@ -28,16 +28,16 @@ class ProductComparison extends React.Component {
   
   componentDidMount() {
     // let currentProductId = this.props.currentProductId;  // NEVER USED
-    // let relatedProductId = this.props.relatedProductId;  // NEVER USED
+    // let cardProductId = this.props.cardProductId;  // NEVER USED
     // console.log("+PC: cDM: cPId: ", currentProductId)
-    // console.log("+PC: cDM: cRPId: ", relatedProductId)
+    // console.log("+PC: cDM: cRPId: ", cardProductId)
     this.loadProductData();
   }
 
   // Strictly speaking, not needed. KEEPT FOR DEBUGGING OR IF NEEDED
   componentDidUpdate = (prevProps, prevState) => {
-    // console.log("PC: cDU: rPI: ", this.props.relatedProductId);
-    if (prevProps.relatedProductId !== this.props.relatedProductId ||
+    // console.log("PC: cDU: rPI: ", this.props.cardProductId);
+    if (prevProps.cardProductId !== this.props.cardProductId ||
         prevProps.currentProductId !== this.props.currentProductId) {
       this.loadProductData();
     }
@@ -50,7 +50,7 @@ class ProductComparison extends React.Component {
         currentProduct: result
       });
     });
-    helper.getOneProduct(this.props.relatedProductId, result => {
+    helper.getOneProduct(this.props.cardProductId, result => {
       // console.log("PC: lRPD: gOP: result: " , result)
       this.setState({
         relatedProduct: result
@@ -84,7 +84,7 @@ class ProductComparison extends React.Component {
     // console.logs for DEBUGGING
     // console.log("PC: cPId: ", currentProduct.id); // used only for debugging
     // console.log("PC: cP: ", currentProduct); // used only for debugging
-    // console.log("PC: rPId: ", relatedProductId);
+    // console.log("PC: rPId: ", cardProductId);
     // console.log("PC: rP: ", relatedProduct);
     const currentProductName = currentProduct.name;
     const relatedProductName = relatedProduct.name;
@@ -115,7 +115,7 @@ class ProductComparison extends React.Component {
       )
       for (let j = 0; j < relatedFeaturesTempArr.length; j++) {
         if (allFeaturesArr[i].feature === relatedFeaturesTempArr[j].feature) {
-          if (relatedFeaturesTempArr[i].value === "null") relatedFeaturesTempArr[i].value = null;
+          if (relatedFeaturesTempArr[j].value === "null") relatedFeaturesTempArr[j].value = null;
           // if (relatedFeaturesTempArr[i].value === "null") relatedFeaturesTempArr[i].value = &#x2713;
           // if (relatedFeaturesTempArr[i].value === true) relatedFeaturesTempArr[i].value = "&#x2713";
           allFeaturesArr[i].relatedValue = relatedFeaturesTempArr[j].value;
@@ -158,7 +158,7 @@ class ProductComparison extends React.Component {
     //           <Table
     //         allFeaturesArr = {this.props.currentProduct}
     //         setProductId={this.props.setProductId}
-    //         relatedProductId={relatedProductId}
+    //         cardProductId={cardProductId}
     //       />
     //     }
     //     </Row>

@@ -5,7 +5,7 @@
 
 // ///////////////// PRODUCTS ////////////////////////////////
 
-const apiAddress="http://52.26.193.201:3000" 
+const apiAddress="http://3.134.102.30" 
 
 const getAllProducts = callback => {
   fetch(`${apiAddress}/products/list`) // CHANGE: default is 5. example: /?count=50 to get 50...

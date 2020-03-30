@@ -6,7 +6,7 @@ import Col from "react-bootstrap/Col";
 import "./ReviewsTiles.css";
 import StarRatings from "react-star-ratings";
 import PropTypes from "prop-types";
-import Highlighter from "react-highlight-words";
+// import Highlighter from "react-highlight-words";
 import ImageComponent from "../Image/ImageComponent";
 import Button from "react-bootstrap/Button";
 
@@ -17,8 +17,8 @@ class ReviewTiles extends React.Component {
     this.state = {
       helpfulness: 0,
       clicked: false,
-      showMore: false,
-      activeIndex: -1
+      showMore: false
+      // activeIndex: -1
     };
   }
 
@@ -45,7 +45,7 @@ class ReviewTiles extends React.Component {
     const { helpfulness } = this.state;
     const { clicked } = this.state;
     const { date } = this.props;
-    const { activeIndex } = this.state;
+    // const { activeIndex } = this.state;
     if (review.body.length < 50) {
       return null;
     }

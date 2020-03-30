@@ -47,6 +47,7 @@ class AnswerImages extends React.Component {
         ) : (
           <Image
             src={this.props.photo}
+            onError={function() {alert('Invalid image source')}}
             thumbnail
             style={{ width: "25%", height: "auto" }}
             onClick={this.ShowModal}

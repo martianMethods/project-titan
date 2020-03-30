@@ -35,12 +35,25 @@ export default class ImageComponent extends Component {
       <div>
         {isOpen ? (
           <div>
-            <Image
-              src={photo}
+            {/* <Image
+              src={
+
+                // photo
+                //   ? photo.includes("unsplash")
+                //     ? `${photo.substring(
+                //         0,
+                //         photo.indexOf("&w=")
+                //       )}&w=${Math.round(window.innerWidth / 10)}&h=${Math.round(
+                //         window.innerWidth / 10
+                //       )}&q=80`
+                //     : photo
+                //   : photo //require("../../../noImg.svg")
+              }
+              // src={photo}
               thumbnail
               style={{ width: "9rem", height: "8rem" }}
               onClick={this.handleShowImage}
-            />
+            /> */}
             <Modal show={true}>
               <ModalHeader style={{ textAlign: "right" }}>
                 <button onClick={this.handleShowImage}>
@@ -51,7 +64,19 @@ export default class ImageComponent extends Component {
               </ModalHeader>
               <ModalBody style={{ textAlign: "center" }}>
                 <Image
-                  src={photo}
+                  src={
+                    photo
+                      ? photo.includes("unsplash")
+                        ? `${photo.substring(
+                            0,
+                            photo.indexOf("&w=")
+                          )}&w=${Math.round(
+                            window.innerWidth / 2
+                          )}&h=${Math.round(window.innerWidth / 2)}&q=80`
+                        : photo
+                      : photo //require("../../../noImg.svg")}
+                  }
+                  // src={photo}
                   rounded
                   style={{ width: "100%", height: "auto" }}
                 />
@@ -60,7 +85,15 @@ export default class ImageComponent extends Component {
           </div>
         ) : (
           <Image
-            src={photo}
+            src={
+              photo
+                ? photo.includes("unsplash")
+                  ? `${photo.substring(0, photo.indexOf("&w="))}&w=${Math.round(
+                      window.innerWidth / 10
+                    )}&h=${Math.round(window.innerWidth / 10)}&q=80`
+                  : photo
+                : photo //require("../../../noImg.svg")}
+            }
             thumbnail
             style={{ width: "9rem", height: "8rem" }}
             onClick={this.handleShowImage}

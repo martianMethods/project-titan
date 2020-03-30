@@ -3,7 +3,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Answers from "./Answers";
 import AddAnswer from ".././q-a/AddAnswer.jsx";
-import Highlighter from "react-highlight-words";
+import Highlighter from "react-highlight-words"; // highlighting
 const helper = require("./../../helper/helper.js");
 
 class Questions extends React.Component {
@@ -75,6 +75,7 @@ class Questions extends React.Component {
         {this.state.ShowModal ? (
           <AddAnswer
             id={this.props.OneQuestion.question_id}
+            show={this.state.ShowModal}
             currentProduct={this.props.currentProduct}
             questionBody={this.props.OneQuestion.question_body}
             button={this.ShowModal}
@@ -97,14 +98,17 @@ class Questions extends React.Component {
               <Col className="layout" sm={9}>
                 <Row className="layout">
                   <div className={"Question"}>
-                    <b>
-                      <Highlighter
-                        highlightClassName=""
-                        searchWords={[...this.props.SearchText]}
-                        autoEscape={true}
-                        textToHighlight={this.props.OneQuestion.question_body}
-                      />
-                    </b>
+                    {this.props.SearchText.length > 2 ? (
+                      <b>
+                        <Highlighter
+                          searchWords={[...this.props.SearchText]}
+                          autoEscape={true}
+                          textToHighlight={this.props.OneQuestion.question_body}
+                        />
+                      </b>
+                    ) : (
+                      <b>{this.props.OneQuestion.question_body}</b>
+                    )}
                   </div>
                 </Row>
               </Col>

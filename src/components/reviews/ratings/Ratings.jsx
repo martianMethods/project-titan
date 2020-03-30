@@ -267,6 +267,7 @@ export default class Ratings extends Component {
                   <strong>Size:</strong>
                 </Row>
                 <RangeSlider
+                  disabled={true}
                   className="rangy"
                   tooltip="auto"
                   tooltipPlacement="top"
@@ -294,6 +295,7 @@ export default class Ratings extends Component {
                   <strong>Width:</strong>
                 </Row>
                 <RangeSlider
+                  disabled={true}
                   className="rangy"
                   tooltip="auto"
                   tooltipPlacement="top"
@@ -321,6 +323,7 @@ export default class Ratings extends Component {
                 <strong>Comfort:</strong>
               </Row>
               <RangeSlider
+                disabled={true}
                 className="rangy"
                 tooltip="auto"
                 tooltipPlacement="top"
@@ -350,6 +353,7 @@ export default class Ratings extends Component {
                 <strong>Quality:</strong>
               </Row>
               <RangeSlider
+                disabled={true}
                 className="rangy"
                 tooltip="auto"
                 tooltipPlacement="top"
@@ -377,6 +381,7 @@ export default class Ratings extends Component {
                 <strong>Length:</strong>
               </Row>
               <RangeSlider
+                disabled={true}
                 className="rangy"
                 tooltip="auto"
                 tooltipPlacement="top"
@@ -404,6 +409,7 @@ export default class Ratings extends Component {
                 <strong>Fit:</strong>
               </Row>
               <RangeSlider
+                disabled={true}
                 className="rangy"
                 tooltip="auto"
                 tooltipPlacement="top"
