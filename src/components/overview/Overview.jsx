@@ -452,7 +452,41 @@ class Overview extends React.Component {
     }
   }
 
+  // isReadytoRender = () => {
+  //   return (
+  //     this.props.currentReviewRating !== undefined &&
+  //     this.props.currentReviewRating !== null &&
+  //     this.props.numReviews !== undefined &&
+  //     this.props.numReviews !== null &&
+  //     this.props.scroll !== undefined &&
+  //     this.props.scroll !== null &&
+  //     this.props.product !== undefined &&
+  //     this.props.product !== null &&
+  //     this.props.styles !== undefined &&
+  //     this.props.styles !== null &&
+  //     Array.isArray(this.props.styles) &&
+  //     this.props.addToCart !== null &&
+  //     Array.isArray(this.props.styles)
+  //   );
+  // }
+
   render() {
+    console.log("O: render: pre-isReadyToRender t.p.currentReviewRating: ", this.props.currentReviewRating);
+    console.log("O: render: pre-isReadyToRender t.p.numReviews: ", this.props.numReviews);
+    console.log("O: render: pre-isReadyToRender t.p.scroll: ", this.props.scroll);
+    console.log("O: render: pre-isReadyToRender t.p.product: ", this.props.product);
+    console.log("O: render: pre-isReadyToRender t.p.styles: ", this.props.styles);
+    console.log("O: render: pre-isReadyToRender t.p.addToCart: ", this.props.addToCart);
+
+    // if (!this.isReadytoRender()) return null;
+
+    // console.log("O: render: POST-isReadyToRender t.p.currentReviewRating: ", this.props.currentReviewRating);
+    // console.log("O: render: POST-isReadyToRender t.p.numReviews: ", this.props.numReviews);
+    // console.log("O: render: POST-isReadyToRender t.p.scroll: ", this.props.scroll);
+    // console.log("O: render: POST-isReadyToRender t.p.product: ", this.props.product);
+    // console.log("O: render: POST-isReadyToRender t.p.styles: ", this.props.styles);
+    // console.log("O: render: POST-isReadyToRender t.p.addToCart: ", this.props.addToCart);
+
     return (
       <Container-fluid>
         <Col className="layout overview">
