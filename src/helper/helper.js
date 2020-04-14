@@ -5,11 +5,14 @@
 
 // ///////////////// PRODUCTS ////////////////////////////////
 
-const apiAddress="http://18.224.200.47"
-const qaAddress="http://localhost:4000" 
+const apiAddress="http://52.26.193.201:3000"
+// const apiAddress="http://18.224.200.47"
+const qaAddress="http://localhost:4000"
+const overviewAddress="http://localhost:3000" // product overview
 
 const getAllProducts = callback => {
   fetch(`${apiAddress}/products/list`) // CHANGE: default is 5. example: /?count=50 to get 50...
+  // fetch(`${overviewAddress}/products/list`) // CHANGE: default is 5. example: /?count=50 to get 50...
     .then(response => response.json())
     .then(data => callback(data))
     .catch(err => true);
@@ -21,6 +24,7 @@ const getAllProducts = callback => {
 
 const getOneProduct = (productId, callback) => {
   fetch(`${apiAddress}/products/${productId}`)
+  // fetch(`${overviewAddress}/productsdb/${productId}`)
     .then(response => response.json())
     .then(data => callback(data))
     .catch(err => true);
@@ -28,9 +32,13 @@ const getOneProduct = (productId, callback) => {
 };
 
 const getOneProductStyle = (productId, callback) => {
+  // console.log("h: gOPS: ENTER: productId, callback: ", productId, callback);
   fetch(`${apiAddress}/products/${productId}/styles`)
-    .then(response => response.json())
+  // fetch(`${overviewAddress}/productsdb/${productId}/styles`)
+  // console.log("h: gOPS: LEAVE: data, callback: ", this.data, callback)
+  .then(response => response.json())
     .then(data => callback(data))
+    // console.log("h: gOPS: LEAVE: data, callback: ", this.data, callback)
     .catch(err => true);
   // returns object with style_id, name, prices, photos,...
 };
@@ -48,6 +56,7 @@ const getRelatedProductsIds = (productId, callback) => {
 // Retrieves a list of questions for a particular product.
 // This list does not include any reported questions
 const getListQuestions = (productId, callback) => {
+  // fetch(`${apiAddress}/qa/${productId}?count=999999`) // CHANGE: default is 5. example: /?count=50 to get 50...
   fetch(`${qaAddress}/qa/${productId}?count=999999`) // CHANGE: default is 5. example: /?count=50 to get 50...
     .then(response => response.json())
     .then(data => callback(data)) // CHANGE: to do what you want with it
@@ -56,7 +65,8 @@ const getListQuestions = (productId, callback) => {
 };
 
 const getAnswersList = (questionId, callback) => {
-  fetch(`${qaAddress}/qa/${questionId}/answers`) // CHANGE: default is 5. example: /?count=50 to get 50...
+  fetch(`${apiAddress}/qa/${questionId}/answers`) // CHANGE: default is 5. example: /?count=50 to get 50...
+  // fetch(`${qaAddress}/qa/${questionId}/answers`) // CHANGE: default is 5. example: /?count=50 to get 50...
     .then(response => response.json())
     .then(data => callback(data)) // CHANGE: to do what you want with it
     .catch(err => true);
@@ -71,6 +81,7 @@ const postAQuestion = (productId, body, name, email, callback) => {
   // name | text | Username for question asker
   // email| text | Email address for question asker
 
+  // fetch(`${apiAddress}/qa/${productId}`, {
   fetch(`${qaAddress}/qa/${productId}`, {
     method: "POST",
     headers: {
@@ -97,6 +108,7 @@ const postAnAnswer = (questionId, body, name, email, photos, callback) => {
   // email| text | Email address for question asker
   // phone|[text]| an array of urls corresponding to images to display
 
+  // fetch(`${apiAddress}/qa/${questionId}/answers`, {
   fetch(`${qaAddress}/qa/${questionId}/answers`, {
     method: "POST",
     headers: {
@@ -117,6 +129,7 @@ const postAnAnswer = (questionId, body, name, email, photos, callback) => {
 
 // Updates a question to show it was found helpful
 const putHelpfulQuestion = (questionId, callback) => {
+  // fetch(`${apiAddress}/qa/question/${questionId}/helpful`, {
   fetch(`${qaAddress}/qa/question/${questionId}/helpful`, {
     method: "PUT",
     headers: {
@@ -128,8 +141,9 @@ const putHelpfulQuestion = (questionId, callback) => {
 };
 
 const putReportQuestion = (questionId, callback) => {
+  // fetch(`${apiAddress}/qa/question/${questionId}/report`, {
   fetch(`${qaAddress}/qa/question/${questionId}/report`, {
-    method: "PUT",
+      method: "PUT",
     headers: {
       "Content-Type": "application/json"
     }
@@ -139,6 +153,7 @@ const putReportQuestion = (questionId, callback) => {
 };
 
 const putHelpfulAnswer = (answerId, callback) => {
+  // fetch(`${apiAddress}/qa/answer/${answerId}/helpful`, {
   fetch(`${qaAddress}/qa/answer/${answerId}/helpful`, {
     method: "PUT",
     headers: {
@@ -150,6 +165,7 @@ const putHelpfulAnswer = (answerId, callback) => {
 };
 
 const putReportAnswer = (answerId, callback) => {
+  // fetch(`${apiAddress}/qa/answer/${answerId}/report`, {
   fetch(`${qaAddress}/qa/answer/${answerId}/report`, {
     method: "PUT",
     headers: {
