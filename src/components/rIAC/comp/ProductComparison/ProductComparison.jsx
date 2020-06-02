@@ -1,18 +1,13 @@
-// this component is for use in RIAC.jsx
 import React from 'react';
-// import Container from 'react-bootstrap/Container'; // NEVER USED
 import Modal from 'react-bootstrap/Modal';
 import Table from 'react-bootstrap/Table';
-// import Row from 'react-bootstrap/Row' // NEVER USED
-// import Col from 'react-bootstrap/Col' // NOT YET USED
 
 import "./ProductComparison.css";
 
 // props as defined in calling parent
-//   currentProductId  ={this.props.currentProductId}
 //   cardProductId  ={cardProductId}
 //   closeComparison   ={this.closeComparison
-
+//   currentProductId  ={this.props.currentProductId}
 
 const helper = require("../../../../helper/helper.js");
 
@@ -27,8 +22,6 @@ class ProductComparison extends React.Component {
   }
   
   componentDidMount() {
-    // let currentProductId = this.props.currentProductId;  // NEVER USED
-    // let cardProductId = this.props.cardProductId;  // NEVER USED
     // console.log("+PC: cDM: cPId: ", currentProductId)
     // console.log("+PC: cDM: cRPId: ", cardProductId)
     this.loadProductData();
@@ -58,8 +51,6 @@ class ProductComparison extends React.Component {
     });
   }
   
-    // Pre-method check if ready to render or null
-    // function method
   isReadytoRender = () => {
     return (
       this.state.currentProduct !== null &&
@@ -70,13 +61,6 @@ class ProductComparison extends React.Component {
   render() {
     // console.log("PC-DATE-TIME: render: ", new Date());
 
-    // Pre-method check if ready to render or null
-
-    // Explicit method
-    // if (this.state.currentProduct === null) return null;
-    // if (this.state.relatedProduct === null) return null;
-
-    // function method
     if (!this.isReadytoRender()) return null;
 
     const { currentProduct, relatedProduct } = this.state;
@@ -84,7 +68,7 @@ class ProductComparison extends React.Component {
     // console.logs for DEBUGGING
     // console.log("PC: cPId: ", currentProduct.id); // used only for debugging
     // console.log("PC: cP: ", currentProduct); // used only for debugging
-    // console.log("PC: rPId: ", cardProductId);
+    // console.log("PC: cPId: ", cardProductId);
     // console.log("PC: rP: ", relatedProduct);
     const currentProductName = currentProduct.name;
     const relatedProductName = relatedProduct.name;
@@ -103,11 +87,7 @@ class ProductComparison extends React.Component {
     const allFeaturesArr = [];
     
     for (let i = 0; i < currentFeaturesArr.length; i++) {
-      // allFeaturesArr.push(currentFeaturesArr[i]);
-      // if (currentFeaturesArr[i].value === "null") currentFeaturesArr[i].value = null;
       if (currentFeaturesArr[i].value === "null") currentFeaturesArr[i].value = "(not applicable)";
-      // if (currentFeaturesArr[i].value === "null") currentFeaturesArr[i].value = &#x2713;
-      // if (currentFeaturesArr[i].value === true) currentFeaturesArr[i].value = "&#x2713";
       allFeaturesArr.push( 
         {
           feature: currentFeaturesArr[i].feature,
@@ -116,24 +96,17 @@ class ProductComparison extends React.Component {
       )
       for (let j = 0; j < relatedFeaturesTempArr.length; j++) {
         if (allFeaturesArr[i].feature === relatedFeaturesTempArr[j].feature) {
-          // if (relatedFeaturesTempArr[j].value === "null") relatedFeaturesTempArr[j].value = null;
           if (relatedFeaturesTempArr[j].value === "null") relatedFeaturesTempArr[j].value = "(not applicable)";
-          // if (relatedFeaturesTempArr[i].value === "null") relatedFeaturesTempArr[i].value = &#x2713;
-          // if (relatedFeaturesTempArr[i].value === true) relatedFeaturesTempArr[i].value = "&#x2713";
           allFeaturesArr[i].relatedValue = relatedFeaturesTempArr[j].value;
           relatedFeaturesTempArr.splice(j, 1);
           j--;
         } else {
-          // allFeaturesArr[i].relatedValue = null;
           allFeaturesArr[i].relatedValue = null;
         }
       }
     }
     for (let j = currentFeaturesArrLen - 1; j < relatedFeaturesTempArr.length; j++) {
-      // if (relatedFeaturesTempArr[j].value === "null") relatedFeaturesTempArr[j].value = null;
       if (relatedFeaturesTempArr[j].value === "null") relatedFeaturesTempArr[j].value = "(not applicable)";
-      // if (relatedFeaturesTempArr[j].value === "null") relatedFeaturesTempArr[j].value = &#x2713;
-      // if (relatedFeaturesTempArr[j].value === true) relatedFeaturesTempArr[j].value = "&#x2713";
       allFeaturesArr.push( 
         {
           feature: relatedFeaturesTempArr[j].feature,
@@ -151,16 +124,6 @@ class ProductComparison extends React.Component {
     }
 
     const handleClose = () => setShow(false);
-    // const handleShow = () => setShow(true);
-
-// ///////
-// SEARCH FOR relatedProduct.features.value: true 1-31: NONE FOUND
-// console.log("PComp: cP: ", currentProduct);
-// console.log("PComp: rP: ", relatedProduct);
-// let relatedFeaturesRubber = relatedFeaturesTempArr.filter(element => element.value === "Rubber");
-// let relatedFeaturesTrue = relatedFeaturesTempArr.filter(element => element.value === (true || "true"));
-// console.log("PComp: rFR: ", relatedFeaturesRubber);
-// console.log("PComp: rFT: ", relatedFeaturesTrue);
 
     return (
       // <Container-fluid class="layout product-card-layout align-left">
@@ -178,8 +141,6 @@ class ProductComparison extends React.Component {
                 </tr>
               </thead>
               <tbody className="comparison-body"> 
-                {/* <tr className="cols">
-                  <Row className="layout comparison-body"> { */}
                 {
                     allFeaturesArr.map((feature, index) => {
                       // console.log("PComp: render: allF: ", feature)
@@ -192,12 +153,6 @@ class ProductComparison extends React.Component {
                       )
                     })
                   }
-                  {/* </Row> */}                
-                {/* <tr>
-                  <td>Table cell</td>
-                  <td>Table cell</td>
-                  <td>Table cell</td>
-                </tr> */}
               </tbody>
             </Table>
           </Modal.Body>

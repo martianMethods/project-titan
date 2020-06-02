@@ -20,19 +20,14 @@ class ProductCard extends React.Component {
   constructor(props) {
     super(props)
     this.state={
-      cardProduct: null, // change over time, requiring re-render
-      cardStyles: null, // change over time, requiring re-render
-      cardReviewRating: null, // change over time, requiring re-render
+      cardProduct: null,
+      cardReviewRating: null,
+      cardStyles: null,
       compareProductsNow: false
-      // cardType: "relatedProduct"  // outfitProduct
     }
-
-    // NO NEED TO BIND WHEN I HAVE <this>
-    // arrow function; current this (that does not need to be overriden)
   }
   
   componentDidMount() {
-    // let cardProductId = this.props.cardProductId  // NEVER USED
     // console.log("+PC: cDM: if cRPId: ", cardProductId)
     this.loadProductData();
   }
@@ -95,7 +90,6 @@ class ProductCard extends React.Component {
     this.props.removeOutfitProductId(this.props.cardProductId)
   }
 
-  // Pre-method check if ready to render or null
   isReadytoRender = () => {
     return (
       this.state.cardProduct !== null &&
@@ -108,24 +102,15 @@ class ProductCard extends React.Component {
   render() {
     // console.log("PC-DATE-TIME: render: ", new Date());
 
-    // Pre-method check if ready to render or null
-
-    // Explicit method
-    // if (this.state.cardProduct === null) return null;
-    // if (this.state.cardStyles === null) return null;
-    // if (this.state.cardReviewRating === null) return null;
-
-    // function method
     if (!this.isReadytoRender()) return null;
 
-    // const { setProductId, currentProduct, cardProductId, cardType } = this.props; // NOT USED
     const { cardProduct, cardStyles, cardReviewRating } = this.state;
 
     // console.logs for DEBUGGING
     // console.log("PC: cP: ", currentProduct); // used only for debugging
-    // console.log("PC: rPId: ", this.props.cardProductId);
-    // console.log("PC: rP: ", cardProduct);
-    // console.log("PC: rSs: ", cardStyles);
+    // console.log("PC: t.p.rPId: ", this.props.cardProductId);
+    // console.log("PC: cP: ", cardProduct);
+    // console.log("PC: cSs: ", cardStyles);
 
     let cardCategory = cardProduct.category || null;
     // console.log("PC: rCat: ", cardCategory);
@@ -136,8 +121,6 @@ class ProductCard extends React.Component {
     let cardDefaultPrice = cardProduct.default_price || null; // SUPERCEDED BY style data
     // console.log("PC: rDP: ", cardDefaultPrice);
 
-    // QUICK PATCH: !default => set to 0
-    // let cardStyle = cardStyles.find(style => style["default?"] === 1) || cardStyles[0];
     let cardStyle = null;
     // console.log("PC: render: cS: ", cardStyle)
     let cardStyleOriginalPrice = null;
@@ -151,7 +134,6 @@ class ProductCard extends React.Component {
       cardStyle = cardStyles.find(style => style["default?"] === 1) || cardStyles[0];
       // console.log("PC: rS: ", cardStyle);
 
-      // let relatedStylesIndex = 2; // HARD CODED - FALLBAK
       cardStyleOriginalPrice = cardStyle.original_price || null;
       // console.log("PC: rStyleOPrice: ", cardStyleOriginalPrice);
 
@@ -169,9 +151,6 @@ class ProductCard extends React.Component {
     }
 
     // console.log("PC: render: rRR: ", cardReviewRating);
-
-    // YOUR OUTFIT
-    // this.yourOutfitIds.push(yourOutfitBaseProduct);
 
     return (
       <Container-fluid class="layout product-card-layout align-left">

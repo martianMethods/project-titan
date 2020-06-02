@@ -1,21 +1,11 @@
 import React from 'react';
 import "bootstrap/dist/css/bootstrap.min.css";
-
-// import Container from "react-bootstrap/Container";
 import "react-bootstrap/Container";
-// import Card from "react-bootstrap/Card"; // NEVER USED
-// import CardDeck from "react-bootstrap/CardDeck"; // NEVER USED
-
-
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 
 import ProductCard from './comp/ProductCard/ProductCard'
 import "./RIAC.css";
-
-// import noImage from "./NoImageOnFile.jpg"; // NEVER USED
-// import noStyles from "./NoStylesOnFile.jpg"; // NEVER USED
-
 
 // props:
 //   setProductId   ={this.setProductId}
@@ -26,11 +16,8 @@ class RIAC extends React.Component{
   constructor(props){
     super(props)
     this.state={
-      cardType: "relatedProduct",
-      // yourOutfitIds: []  // OR
-      // yourOutfitIds: JSON.parse(localStorage.getItem("yourOutfitIds")) OR
+      cardType: "relatedProduct", // used???
       yourOutfitIds: this.reinstateOutfitIds() || []
-      // relatedProductId: null // So far, not needed
     }
   }
 
@@ -54,17 +41,6 @@ class RIAC extends React.Component{
     return localStorage.setItem("yourOutfitIds", JSON.stringify(this.state.yourOutfitIds))
   }
 
-  // const init = () => {
-  //   let preloadedState;
-  //   try {
-  //     preloadedState =  JSON.parse(window.localStorage.getItem(storageKey));
-  //     // validate preloadedState if necessary
-  //   } catch (e) {
-  //     // ignore
-  //   }
-  //   return preloadedState || initialState;
-  // };
-
   reinstateOutfitIds = () => {
     let yourPreloadedOutfitIds = [];
     let storageKey = "yourOutfitIds";
@@ -72,7 +48,7 @@ class RIAC extends React.Component{
       yourPreloadedOutfitIds = JSON.parse(localStorage.getItem(storageKey));
     //validate yourPreloadedOutfitIds
     } catch (e) {
-      // ignore
+      // ignore QQQ
     }
     return yourPreloadedOutfitIds || [];
     };
@@ -84,7 +60,6 @@ class RIAC extends React.Component{
   setCardTypeToRelatedProduct = () => {
     this.props.cardType("relatedProduct");
 }
-
 
   addOutfitProductId = () => {
     // console.log("RIAC: aOPI: t.p: ", this.props)
@@ -115,7 +90,7 @@ class RIAC extends React.Component{
 
     if (!this.isReadytoRender()) return null;
 
-    const { yourOutfitIds } = this.state;
+    const { cardType, yourOutfitIds } = this.state;
     // const { setProductId, currentProduct, relatedProductsIds } = this.state;
 
     let relatedProductsIds = this.props.relatedProductsIds;
@@ -174,17 +149,16 @@ class RIAC extends React.Component{
               </div>
             </Col>
             {
-              // yourOutfitIdsForDisplay.map((yourOutfitId, index) => { 
               yourOutfitIds.map((yourOutfitId, index) => { 
                 index++;
                 let indexOutfitIdStr = index.toString() + '-' + yourOutfitId.toString();
                 return (
                   <Col className="layout col-3" key={indexOutfitIdStr}>
                     <ProductCard
-                      currentProduct = {this.props.currentProduct}
-                      setProductId={this.props.setProductId} // STRICTLY SPEAKING, NOT NEEDED
                       cardProductId={yourOutfitId}
                       cardType={"yourOutfits"}
+                      currentProduct = {this.props.currentProduct}
+                      setProductId={this.props.setProductId} // STRICTLY SPEAKING, NOT NEEDED
                       removeOutfitProductId={this.removeOutfitProductId}
                     />
                   </Col>
