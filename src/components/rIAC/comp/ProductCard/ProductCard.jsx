@@ -1,11 +1,5 @@
-// this component is for use in RIAC.jsx
 import React from 'react';
-// import Container from 'react-bootstrap/Container'; // NEVER USED
-// import Card from 'react-bootstrap/Card'; // NEVER USED
-// import CardDeck from 'react-bootstrap/CardDeck'; // NEVER USED
-
 import Row from 'react-bootstrap/Row'
-// import Col from 'react-bootstrap/Col' // NOT YET USED
 import StarRatings from "react-star-ratings";
 import noImage from "./NoImageOnFile.jpg";
 import addToOutfitImage from "./NoStylesOnFile.jpg";
@@ -14,12 +8,10 @@ import "./ProductCard.css";
 import ProductComparison from '../ProductComparison/ProductComparison';
 
 // props as defined in calling parent
-//   setProductId  ={this.props.setProductId}
-//   currentProduct  ={this.props.currentProduct} USED ONLY FOR DEBUGGING
 //   cardProductId  ={relatedZProductId}
 //   cardType  = "relatedProduct"  OR "yourOutfits"
-//   cardImageName   ={yourOutfitImageToShow}
-//   addOutfitProductId  ={this.addOutfitProductId} // only for YO
+//   currentProduct  ={this.props.currentProduct} USED ONLY FOR DEBUGGING
+//   setProductId  ={this.props.setProductId}
 //   removeOutfitProductId  ={this.removeOutfitProductId}
 
 const helper = require("../../../../helper/helper.js");
@@ -192,9 +184,9 @@ class ProductCard extends React.Component {
                 <small><p className="btn btn-star-riac" onClick={this.props.cardType === "relatedProduct" ? this.compareProducts : this.removeOutfitProductId}>&#x2605;</p></small>
                 {this.state.compareProductsNow && (
                     <ProductComparison 
-                      currentProductId={this.props.currentProduct.id}
                       cardProductId={this.props.cardProductId} 
                       closeComparison={this.closeComparison}                  
+                      currentProductId={this.props.currentProduct.id}
                     />  
                   )
                 }
