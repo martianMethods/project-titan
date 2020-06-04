@@ -105,8 +105,6 @@ class ProductCard extends React.Component {
     if (!this.isReadytoRender()) return null;
 
     const { cardProduct, cardStyles, cardReviewRating } = this.state;
-
-    // console.logs for DEBUGGING
     // console.log("PC: cP: ", currentProduct); // used only for debugging
     // console.log("PC: t.p.rPId: ", this.props.cardProductId);
     // console.log("PC: cP: ", cardProduct);
