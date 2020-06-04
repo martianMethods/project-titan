@@ -15,8 +15,8 @@ class ProductComparison extends React.Component {
   constructor(props) {
     super(props)
     this.state={
-      currentProduct: null, // change over time, requiring re-render
-      relatedProduct: null, // change over time, requiring re-render
+      currentProduct: null,
+      relatedProduct: null,
     }
 
   }
@@ -65,14 +65,12 @@ class ProductComparison extends React.Component {
 
     const { currentProduct, relatedProduct } = this.state;
 
-    // console.logs for DEBUGGING
     // console.log("PC: cPId: ", currentProduct.id); // used only for debugging
     // console.log("PC: cP: ", currentProduct); // used only for debugging
     // console.log("PC: cPId: ", cardProductId);
     // console.log("PC: rP: ", relatedProduct);
     const currentProductName = currentProduct.name;
     const relatedProductName = relatedProduct.name;
-
     // console.log("PComp: typeof cP: ", currentProduct);
 
     const currentFeaturesArr = currentProduct.features || null;
