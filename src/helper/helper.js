@@ -7,7 +7,8 @@
 
 const apiAddress="http://52.26.193.201:3000"
 // const apiAddress="http://18.224.200.47"
-const qaAddress="http://localhost:4000"
+// const qaAddress="http://localhost:4000"
+const qaAddress="http://localhost:3000"
 const overviewAddress="http://localhost:3000" // product overview
 
 const getAllProducts = callback => {
